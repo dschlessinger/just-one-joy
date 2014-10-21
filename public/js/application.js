@@ -1,7 +1,6 @@
 jQuery(document).ready(function($) {
   function updateCountdown() {
-  		prelength = jQuery('.message').val().length
-      var remaining = (500 + prelength) - jQuery('.message').val().length;
+      var remaining = $('textarea').attr('maxlength') - jQuery('.message').val().length;
       jQuery('.countdown').text(remaining + ' characters remaining.');
   }
 

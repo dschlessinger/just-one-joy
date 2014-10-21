@@ -1,11 +1,11 @@
 <% require 'date' %>
-<% @length = Date.today.to_s.length + 500 %>
+<% @length = Date.today.strftime("%B %e, %Y").to_s.length + 500 + 3 %>
 
 <h1 class="welcome">Welcome, <%= current_user.first_name.capitalize %>.</h1>
 
 <form id="post-form" action='/posts' method='POST'>
 	<input type="hidden" name="user_id" value="<%= current_user.id %>">
-	<textarea class="form-control form-center message" rows="3" maxlength="<%= @length %>" name="body"><%= "#{Date.today} - " %></textarea>
+	<textarea class="form-control form-center message" rows="3" maxlength="<%= @length %>" name="body"><%= "#{Date.today.strftime("%B %e, %Y")} - " %></textarea>
 	<div class="characters"><p class="countdown"></p></div>
   <input id="post-submit" type="submit" value="Submit" class="btn btn-success btn-sm post-submit" />
 </form>
