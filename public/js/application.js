@@ -1,15 +1,30 @@
-$('h1.welcome').css({ 'width':'100%', 'text-align':'center' });
-var h1 = $('h1.welcome').height();
-var h = h1/2;
-var w1 = $(window).height();
-var w = w1/2;
-var m = w - h
-$('h1.welcome').css("margin-top",m + "px")
+jQuery(document).ready(function($) {
+  function updateCountdown() {
+  		prelength = jQuery('.message').val().length
+      var remaining = (500 + prelength) - jQuery('.message').val().length;
+      jQuery('.countdown').text(remaining + ' characters remaining.');
+  }
 
-$('.forgot-pass').click(function(event) {
-  $(".pr-wrap").toggleClass("show-pass-reset");
+  updateCountdown();
+  $('.message').change(updateCountdown);
+  $('.message').keyup(updateCountdown);
 });
 
-$('.pass-reset-submit').click(function(event) {
-  $(".pr-wrap").removeClass("show-pass-reset");
+
+$('#post-form').submit(function(e){
+	e.preventDefault();
+	$.ajax({
+		url: '/posts',
+		type: 'POST',
+		data: $('#post-form').serialize(),
+		dataType: 'json',
+		beforeSend: function(){
+			$("#post-form").slideUp(600);
+		}}).done(function(data){
+	    post = "<h3 class='welcome'>" + data.body + "</h3>"
+	    setTimeout(function(){$(".welcome").after($(post).fadeIn("slow"))},600)
+		});
 });
+    // , function() {
+    //      $(this).html("<img src='images/thanks.png'/>").slideDown(1000);
+    // });

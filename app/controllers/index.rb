@@ -2,7 +2,7 @@ get '/' do
 	if logged_in?
 		erb :index
 	else
-		erb :_log_in
+		erb :log_in
 	end
 end
 
@@ -31,4 +31,12 @@ end
 delete '/sessions/:id' do
   session.clear
   redirect '/'
+end
+
+#----------- POSTS -----------
+
+post '/posts' do
+  content_type :json
+  post = Post.create(params)
+  return {body: post.body}.to_json
 end

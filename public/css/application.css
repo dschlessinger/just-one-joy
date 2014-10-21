@@ -9,6 +9,10 @@ a:hover {
   color: inherit;
 }
 
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
 /**********************************************************/
 /* LOG IN */
 /**********************************************************/
@@ -26,17 +30,17 @@ a:hover {
 }
 
 p.form-title {
+  margin: 0 auto;
   font-size: 20px;
   font-weight: 600;
   text-align: center;
   color: #FFFFFF;
-  /*margin-top: 20%;*/
   text-transform: uppercase;
   letter-spacing: 4px;
 }
 
 form {
-  width: 250px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -73,94 +77,6 @@ form.login input[type="submit"]:hover {
   transition: background-color 0.5s ease;
 }
 
-form.login .remember-forgot {
-  float: left;
-  width: 100%;
-  margin: 10px 0 0 0;
-}
-form.login .forgot-pass-content {
-  min-height: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-form.login label, form.login a {
-  font-size: 12px;
-  font-weight: 400;
-  color: #FFFFFF;
-}
-
-form.login a {
-  transition: color 0.5s ease;
-}
-
-form.login a:hover {
-  color: #2ecc71;
-}
-
-.pr-wrap {
-  width: 100%;
-  height: 100%;
-  min-height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  display: none;
-}
-
-.show-pass-reset {
-  display: block !important;
-}
-
-.pass-reset {
-  margin: 0 auto;
-  width: 250px;
-  position: relative;
-  margin-top: 22%;
-  z-index: 999;
-  background: #FFFFFF;
-  padding: 20px 15px;
-}
-
-.pass-reset label {
-  font-size: 12px;
-  font-weight: 400;
-  margin-bottom: 15px;
-}
-
-.pass-reset input[type="email"] {
-  width: 100%;
-  margin: 5px 0 0 0;
-  padding: 5px 10px;
-  background: 0;
-  border: 0;
-  border-bottom: 1px solid #000000;
-  outline: 0;
-  font-style: italic;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 1px;
-  margin-bottom: 5px;
-  color: #000000;
-  outline: 0;
-}
-
-.pass-reset input[type="submit"] {
-  width: 100%;
-  border: 0;
-  font-size: 14px;
-  text-transform: uppercase;
-  font-weight: 500;
-  margin-top: 10px;
-  outline: 0;
-  cursor: pointer;
-  letter-spacing: 1px;
-}
-
-.pass-reset input[type="submit"]:hover {
-  transition: background-color 0.5s ease;
-}
-
 .signup {
   display: block;
   width: 100%;
@@ -173,10 +89,48 @@ form.login a:hover {
 
 .welcome {
   color: #FFFFFF;
+  text-align: center;
+  letter-spacing: 6px;
+  margin-top: 7%;
+  margin-bottom: 5%;
+}
+
+h1.welcome {
   font-size: 5em;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 6px;
+}
+
+h3.welcome {
+  font-size: 2em;
+  font-weight: 600;
+}
+
+.form-center {
+  width: 49%;
+  margin: 0 auto;
+}
+
+textarea.form-control {
+  height: 200px;
+  background: url('http://i.stack.imgur.com/ynxjD.png') repeat;
+  background-position: center;
+  font: normal 14px verdana;
+  line-height: 25px;
+  padding: 11px 10px;
+  border: solid 1px #ddd;
+}
+
+.characters {
+  display: block;
+  width: 48%;
+  margin: -1.5% auto;
+  text-align: right;
+}
+
+.post-submit {
+  display: block;
+  margin: 30px auto;
 }
 
 /**********************************************************/
