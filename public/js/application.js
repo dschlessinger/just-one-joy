@@ -1,7 +1,15 @@
-$(document).ready(function() {
-  // This is called after the document has loaded in its entirety
-  // This guarantees that any elements we bind to will exist on the page
-  // when we try to bind to them
+$('h1.welcome').css({ 'width':'100%', 'text-align':'center' });
+var h1 = $('h1.welcome').height();
+var h = h1/2;
+var w1 = $(window).height();
+var w = w1/2;
+var m = w - h
+$('h1.welcome').css("margin-top",m + "px")
 
-  // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
+$('.forgot-pass').click(function(event) {
+  $(".pr-wrap").toggleClass("show-pass-reset");
+});
+
+$('.pass-reset-submit').click(function(event) {
+  $(".pr-wrap").removeClass("show-pass-reset");
 });

@@ -1,0 +1,14 @@
+<nav>
+  <ul "top-right">
+    <% if logged_in? %>
+      <li>
+        <form id="sign-out" action="/sessions/<%= current_user.id %>" method="post">
+          <input name="_method" type="hidden" value="delete" />
+          <input class="auth" type="submit" value="Sign Out">
+        </form>
+      </li>
+    <% else %>
+      <li><a class="auth" href="/users/new">Sign Up</a></li>
+    <% end %>
+  </ul>
+</nav>
