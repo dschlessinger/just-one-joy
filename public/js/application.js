@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
   function updateCountdown() {
-      var remaining = $('textarea').attr('maxlength') - jQuery('.message').val().length;
+      var remaining = 140 - jQuery('.message').val().length;
       jQuery('.countdown').text(remaining + ' characters remaining.');
   }
 
@@ -18,12 +18,11 @@ $('#post-form').submit(function(e){
 		data: $('#post-form').serialize(),
 		dataType: 'json',
 		beforeSend: function(){
-			$("#post-form").slideUp(600);
+			$(".wrapper").slideUp(700);
 		}}).done(function(data){
-	    post = "<h3 class='welcome'>" + data.body + "</h3>"
-	    setTimeout(function(){$(".welcome").after($(post).fadeIn("slow"))},600)
+			// $('h3.welcome').text("You're feeling joyful about...")
+	    post = "<h3 class='welcome'><span class='post-date'>" + data.created_at + "</span> - " + data.body + "</h3>";
+	    setTimeout(function(){$('h3.welcome').after($(post).fadeIn("slow"))},800);
+	    $('h1.welcome').slideUp(700);
 		});
 });
-    // , function() {
-    //      $(this).html("<img src='images/thanks.png'/>").slideDown(1000);
-    // });

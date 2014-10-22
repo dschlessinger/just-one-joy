@@ -1,11 +1,27 @@
 <% require 'date' %>
-<% @length = Date.today.strftime("%B %e, %Y").to_s.length + 500 + 3 %>
 
 <h1 class="welcome">Welcome, <%= current_user.first_name.capitalize %>.</h1>
 
-<form id="post-form" action='/posts' method='POST'>
+<h3 class="welcome">What are you feeling joyful about today?</h3>
+
+<div class="wrapper">
+	<link rel="stylesheet" href="/css/notepad.css">
+	<form id="post-form" class="paper" action='/posts' method='POST'>
+		<p class="margin">Date: <%=Date.today.strftime("%B %e, %Y")%></p>
+		<input type="hidden" name="user_id" value="<%= current_user.id %>">
+		<textarea class="text message" name="body" rows="4" maxlength="140"></textarea>
+		<div class="characters"><p class="countdown"></p></div>
+		<input id="post-submit" type="submit" value="Create" class="button" />
+	</form>
+</div>
+
+
+<!--
+
+<form id="post-form" class="paper" action='/posts' method='POST'>
+	<div class="margin">Title: <input id="title" type="text" name="title"></div>
 	<input type="hidden" name="user_id" value="<%= current_user.id %>">
-	<textarea class="form-control form-center message" rows="3" maxlength="<%= @length %>" name="body"><%= "#{Date.today.strftime("%B %e, %Y")} - " %></textarea>
+	<textarea class="form-control form-center-entry message" rows="3" maxlength="<%= @length %>" name="body"><%= "#{Date.today.strftime("%B %e, %Y")} - " %></textarea>
 	<div class="characters"><p class="countdown"></p></div>
   <input id="post-submit" type="submit" value="Submit" class="btn btn-success btn-sm post-submit" />
-</form>
+</form> -->

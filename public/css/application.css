@@ -2,6 +2,13 @@ body {
   font-family: 'Open Sans' , sans-serif;
 	background-size: cover;
 	background-repeat: no-repeat;
+  height: 100%;
+}
+
+html,body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
 }
 
 a:hover {
@@ -42,6 +49,10 @@ p.form-title {
 form {
   width: 100%;
   margin: 0 auto;
+}
+
+form.login {
+  width: 15%;
 }
 
 form.login input[type="email"], form.login input[type="password"], form.login input[type="text"] {
@@ -91,23 +102,28 @@ form.login input[type="submit"]:hover {
   color: #FFFFFF;
   text-align: center;
   letter-spacing: 6px;
-  margin-top: 7%;
-  margin-bottom: 5%;
 }
 
 h1.welcome {
   font-size: 5em;
   font-weight: 800;
   text-transform: uppercase;
+  margin-top: 5%;
 }
 
 h3.welcome {
   font-size: 2em;
   font-weight: 600;
+  margin: 5% auto;
 }
 
 .form-center {
-  width: 49%;
+  width: 700px;
+  margin: 0 auto;
+}
+
+.form-center-entry {
+  width: 700px;
   margin: 0 auto;
 }
 
@@ -121,16 +137,14 @@ textarea.form-control {
   border: solid 1px #ddd;
 }
 
-.characters {
-  display: block;
-  width: 48%;
-  margin: -1.5% auto;
-  text-align: right;
-}
-
 .post-submit {
   display: block;
   margin: 30px auto;
+}
+
+.post-date {
+  color: black;
+  font-weight: 800
 }
 
 /**********************************************************/
@@ -161,3 +175,5 @@ nav ul {
   opacity: 1;
   transition: opacity 1s ease;
 }
+
+/*********************************************************/

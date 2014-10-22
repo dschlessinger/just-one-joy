@@ -20,8 +20,8 @@ get '/users/new' do
 	erb :sign_up
 end
 
-post '/users' do
-  new_user = User.new(params[:user])
+post '/users/new' do
+  new_user = User.new(params)
   if new_user.save
   	session[:user_id] = new_user.id
   end
@@ -38,5 +38,5 @@ end
 post '/posts' do
   content_type :json
   post = Post.create(params)
-  return {body: post.body}.to_json
+  return {body: post.body, created_at: post.created_at.to_date.strftime("%B %e, %Y")}.to_json
 end
