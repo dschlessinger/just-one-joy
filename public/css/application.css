@@ -176,4 +176,15 @@ nav ul {
   transition: opacity 1s ease;
 }
 
-/*********************************************************/
+/**********************************************************/
+/* POSTS */
+/**********************************************************/
+
+#current-posts {
+  display: block;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 3em;
+  list-style-type: none;
+  color: white;
+}

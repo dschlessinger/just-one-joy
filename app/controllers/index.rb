@@ -1,3 +1,6 @@
+require 'time'
+require 'date'
+
 get '/' do
 	if logged_in?
 		erb :index
@@ -36,7 +39,9 @@ end
 #----------- POSTS -----------
 
 post '/posts' do
-  content_type :json
-  post = Post.create(params)
-  return {body: post.body, created_at: post.created_at.to_date.strftime("%B %e, %Y")}.to_json
+  Post.create(params)
+  midnight = Time.now.midnight.utc
+  @posts = current_user.posts.where("updated_at >= ? AND updated_at < ?", midnight, midnight.advance(:days => 1))
+  include ActionView::Helpers
+  erb :my_html, layout: false
 end

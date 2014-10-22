@@ -62,6 +62,7 @@ body {
 .button {
 	cursor:pointer;
 	margin-top:20px;
+	margin-right: 10px;
 	float:right;
 	height:40px;
 	padding-left:24px;
