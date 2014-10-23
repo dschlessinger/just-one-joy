@@ -318,3 +318,23 @@ nav ul li:nth-child(2) {
 .graph {
   margin-left: 50px;
 }
+
+a.graph-current {
+  background-color: #3399FF;
+  border-color: #3399FF;
+  color: white;
+
+  -webkit-transition-duration: 0.4s;
+     -moz-transition-duration: 0.4s;
+      -ms-transition-duration: 0.4s;
+       -o-transition-duration: 0.4s;
+          transition-duration: 0.4s;
+}
+
+.graphContainer {
+  padding: 15px;
+  margin: 0 auto;
+  display: none;
+  background-color:white;
+  border-radius: 8px;
+}
