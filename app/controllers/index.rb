@@ -45,8 +45,20 @@ get '/posts' do
 end
 
 post '/posts' do
-  result = Alchemy.new(API_KEY, params[:body]).text_analysis
-  Post.create(params.merge(sentiment: result))
+  p "="*50
+  p "Params:"
+  p params
+  p "We are running the following post: Post.create(#{params})"
+  p "="*50
+  post = Post.create(params)
+  p "~"*50
+  p "Sentiment:"
+  p post.sentiment
+  p "~"*50
+  p "@"*50
+  p "Post:"
+  p post
+  p "@"*50
   @today = current_user.posts.where(updated_at: Date.yesterday.to_time...Time.current).order(updated_at: :desc)
   @posts = current_user.posts.order(updated_at: :desc)
   erb :my_html, layout: false
