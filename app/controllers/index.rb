@@ -45,7 +45,7 @@ get '/posts' do
 end
 
 post '/posts' do
-  result = Alchemy.new(API_KEY, params[:body]).text_analysis ||=
+  result = Alchemy.new(API_KEY, params[:body]).text_analysis
   Post.create(params.merge(sentiment: result))
   @today = current_user.posts.where(updated_at: Date.yesterday.to_time...Time.current).order(updated_at: :desc)
   @posts = current_user.posts.order(updated_at: :desc)

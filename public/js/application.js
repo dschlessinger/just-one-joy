@@ -101,6 +101,7 @@ $('#display-posts-button').click(function(e) {
 
 function createGraph() {
   var ctx = $(".graphContainer").get(0).getContext("2d");
+  ctx.clearRect(0, 0, 900, 400);
   var data = {
       labels: ["January", "February", "March", "April", "May", "June", "July"],
       datasets: [
@@ -140,19 +141,21 @@ function createGraph() {
   // return myBarChart
 }
 
-$('.graph').click(function(){
-  // e.preventDefault();
-  // $.ajax({
-  //   url: 'graph',
-  //   beforeSend: function(){
+function switchToGraph(){
   $(this).addClass('graph-current')
   $('.joyContainer').fadeOut("slow")
-  //   }
-  // }).done(function(data){
   setTimeout(function(){
-  $('.graphContainer').css("display","block")
+    $('.graphContainer').css("width","900")
+    $('.graphContainer').css("height","400")
+    $('.graphContainer').css("display","block")
   }, 700)
+}
+
+$('.graph').click(function(){
+  // var ctx = document.getElementsByClassName('graphContainer').getContext('2d')
+  // ctx.clearRect(0, 0, 900, 400);
+  switchToGraph();
+  // if ($('.graphContainer').toDataURL() == document.getElementById('blank').toDataURL()) {
   createGraph();
-    // $('.graphContainer').append(createGraph(data));
-  // })
+  // }
 });
