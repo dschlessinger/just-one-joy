@@ -14,17 +14,11 @@ require 'pathname'
 require 'pg'
 require 'active_record'
 require 'active_support'
-require 'action_view'
-
 
 require 'logger'
 
 require 'sinatra'
 require "sinatra/reloader" if development?
-
-class Sinatra::Application
-	include ActionView::Helpers
-end
 
 require 'erb'
 

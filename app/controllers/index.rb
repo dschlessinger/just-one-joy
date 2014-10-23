@@ -41,7 +41,7 @@ end
 post '/posts' do
   Post.create(params)
   midnight = Time.now.midnight.utc
-  @posts = current_user.posts.where("updated_at >= ? AND updated_at < ?", midnight, midnight.advance(:days => 1))
-  include ActionView::Helpers
+  @today = current_user.posts.where("user_id = ? AND updated_at >= ? AND updated_at < ?", current_user.id, midnight, midnight.advance(:days => 1)).reverse
+  @posts = Post.where("user_id = ?", current_user.id).reverse
   erb :my_html, layout: false
 end

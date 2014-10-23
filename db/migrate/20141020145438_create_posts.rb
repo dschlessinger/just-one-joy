@@ -3,6 +3,8 @@ class CreatePosts < ActiveRecord::Migration
   	create_table :posts do |t|
   		t.belongs_to :user
   		t.text :body
+  		t.boolean :starred, :default => false
+  		t.float :sentiment
   		t.timestamps
   	end
   end

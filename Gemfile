@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 # PostgreSQL driver
 gem 'pg'
 
+gem 'activerecord'
+gem 'activesupport'
+
 # Sinatra driver
 gem 'sinatra'
 gem 'sinatra-contrib'
@@ -11,14 +14,12 @@ gem 'sinatra-contrib'
 # Use Thin for our web server
 gem 'thin'
 
-gem 'activerecord'
-gem 'activesupport'
-gem 'actionview'
-
 gem 'rake'
 gem 'bcrypt'
 
 gem 'shotgun'
+
+gem 'httparty'
 
 group :test do
   gem 'shoulda-matchers'

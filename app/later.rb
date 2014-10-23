@@ -14,11 +14,5 @@ class Alchemy
 	end
 end
 
-class Post < ActiveRecord::Base
-  validates_presence_of :body
-  belongs_to :user
-
-  before_create do
-  	self.sentiment = Alchemy.new(ENV['APIKEY'], self.body).text_analysis["docSentiment"]["score"].to_f
-  end
-end
+client = Alchemy.new('b9c67370b8702641d0933b7feaac314aac7d80a1', 'I feel very sad')
+p client.text_analysis["docSentiment"]["score"].to_f

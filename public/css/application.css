@@ -188,3 +188,109 @@ nav ul {
   list-style-type: none;
   color: white;
 }
+
+.joy-outer-container {
+  width: 100%;
+  opacity: 0;
+}
+
+.joyContainer {
+  width: 700px;
+  margin: 0 auto;
+}
+
+.header {
+  /*font-size: 2em;*/
+  font-weight: 900;
+  margin-bottom: 1em;
+}
+
+.joy {
+  /*font-size: 2em;*/
+  overflow: hidden;
+  word-wrap: break-word;
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  margin: 2%;
+  border: 5px dashed white;
+  border-radius: 12px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* =========================================== */
+/* INDEX FILTER */
+/* =========================================== */
+
+.joyFilter {
+  width: 900px;
+  font-size: 1.5em;
+  display: block;
+  text-align: center;
+  padding:0 0 6px 0s;
+  position:relative;
+  margin-top: 3%;
+  margin-left:auto;
+  margin-right:auto;
+  border-bottom:1px solid rgb(220,220,220);
+  z-index:50;
+}
+
+.joyFilter a {
+  margin-right: 10px;
+  color: black;
+  text-decoration:none;
+  display: inline;
+  padding:5px 10px 4px 10px;
+  border-left:1px solid rgb(220,220,220);
+  border-top:1px solid rgb(220,220,220);
+  border-right:1px solid rgb(220,220,220);
+  cursor:pointer;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  font-size:1em;
+  font-weight: lighter;
+}
+
+.joyFilter a.current {
+    background-color:rgb(220,220,220);
+}
+
+.joyFilter a:hover {
+    background-color: #3399FF;
+    border-color: #3399FF;
+    color: white;
+
+    -webkit-transition-duration: 0.4s;
+       -moz-transition-duration: 0.4s;
+        -ms-transition-duration: 0.4s;
+         -o-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+
+}
+
+.isotope,
+.isotope .isotope-item {
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+      -ms-transition-duration: 0.8s;
+       -o-transition-duration: 0.8s;
+          transition-duration: 0.8s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+     -moz-transition-property:    -moz-transform, opacity;
+      -ms-transition-property:     -ms-transform, opacity;
+       -o-transition-property:      -o-transform, opacity;
+          transition-property:         transform, opacity;
+}
