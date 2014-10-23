@@ -10,7 +10,7 @@ class Alchemy
 
 	def text_analysis
 		result = self.class.post("/text/TextGetTextSentiment", @options)
-		JSON.parse(result.body)
+		JSON.parse(result.body)["docSentiment"]["score"].to_f
 	end
 end
 
@@ -19,6 +19,6 @@ class Post < ActiveRecord::Base
   belongs_to :user
 
   before_create do
-  	self.sentiment = Alchemy.new(ENV['APIKEY'], self.body).text_analysis["docSentiment"]["score"].to_f
+  	self.sentiment = Alchemy.new(ENV['APIKEY'], self.body).text_analysis
   end
 end
