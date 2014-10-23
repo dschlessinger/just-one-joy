@@ -51,3 +51,11 @@ post '/posts' do
   @posts = current_user.posts.order(updated_at: :desc)
   erb :my_html, layout: false
 end
+
+post '/star_post' do
+  post = Post.find(params[:id])
+  post.starred == true ? post.starred = false : post.starred = true
+  post.save
+  content_type :json
+  return {id: post.id, boolean: post.starred}.to_json
+end

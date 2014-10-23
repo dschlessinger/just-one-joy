@@ -1,13 +1,16 @@
 <% @posts.each do |post| %>
-	<div class="thumbnail<%=' starred' if post.starred %><%=' today' if @today.include?(post) %>">
+	<div id="<%=post.id%>" class="thumbnail<%=' starred' if post.starred %><%=' today' if @today.include?(post) %>">
 		<div class="caption">
 			<h3 class="header"><%= post.body %></h3>
 			<p><%= (post.created_at.to_time - 7.hours).strftime("%B %e, %Y") %></p>
 			<% if JSON.parse(post.sentiment)['status'] == "OK" %>
 			<p>Positivity Ranking: <b><%= JSON.parse(post.sentiment)["docSentiment"]["score"] %></b></p>
 			<% end %>
-			<button type="button" class="btn btn-default btn-md">
-			  <span class="glyphicon glyphicon-star<%='-empty' if !post.starred %>"></span> Star
+			<button type="button" class="btn btn-default plus">
+			  <span id="plus<%=post.id%>" class="glyphicon glyphicon-plus"></span> Expand
+			</button>
+			<button type="button" class="btn btn-default star">
+			  <span id="star<%=post.id%>" class="glyphicon glyphicon-star<%='-empty' if !post.starred %>"></span> Star
 			</button>
 		</div>
 	</div>
