@@ -1,6 +1,7 @@
 <nav>
   <ul "top-right">
     <% if logged_in? %>
+      <li><a id="display-posts-button" href="/posts">All my posts</a></li>
       <li>
         <form id="sign-out" action="/sessions/<%= current_user.id %>" method="post">
           <input name="_method" type="hidden" value="delete" />

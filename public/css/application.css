@@ -102,6 +102,7 @@ form.login input[type="submit"]:hover {
   color: #FFFFFF;
   text-align: center;
   letter-spacing: 6px;
+  text-shadow: 0px 0.5px 0.25px rgba(0, 0, 0, 0.2);
 }
 
 h1.welcome {
@@ -156,10 +157,30 @@ nav {
   font-weight: bold;
 }
 
-nav ul {
-  float: right;
+nav ul li{
+  margin: 10px;
+  padding: 0 15px;
   display: inline-block;
+}
+
+nav ul li:nth-child(1) {
+  float: left;
+  text-align: left;
+}
+
+nav ul li:nth-child(2) {
+  color: black;
+  float: right;
   text-align: right;
+}
+
+#display-posts-button {
+  color: white;
+}
+
+#display-posts-button:hover {
+  color: black;
+  transition: 0.4s ease;
 }
 
 .auth {
@@ -172,8 +193,8 @@ nav ul {
 }
 
 .auth:hover {
-  opacity: 1;
-  transition: opacity 1s ease;
+  color: black;
+  transition: 0.4s ease;
 }
 
 /**********************************************************/
@@ -192,22 +213,25 @@ nav ul {
 .joy-outer-container {
   width: 100%;
   opacity: 0;
+  display:none;
 }
 
 .joyContainer {
-  width: 700px;
+  width: 900px;
+  height: 400px;
+  /*margin:;*/
   margin: 0 auto;
+  overflow-y: scroll;
 }
 
 .header {
-  /*font-size: 2em;*/
   font-weight: 900;
   margin-bottom: 1em;
 }
 
-.joy {
+/*.joy {*/
   /*font-size: 2em;*/
-  overflow: hidden;
+/*  overflow: hidden;
   word-wrap: break-word;
   width: 200px;
   height: 200px;
@@ -216,8 +240,8 @@ nav ul {
   border: 5px dashed white;
   border-radius: 12px;
   padding: 10px;
-  background-color: rgba(255, 255, 255, 0.7);
-}
+  background-color: rgba(255, 255, 255, 0.7);*/
+/*}*/
 
 /* =========================================== */
 /* INDEX FILTER */
@@ -233,6 +257,7 @@ nav ul {
   margin-top: 3%;
   margin-left:auto;
   margin-right:auto;
+  margin-bottom:13px;
   border-bottom:1px solid rgb(220,220,220);
   z-index:50;
 }
@@ -293,4 +318,15 @@ nav ul {
       -ms-transition-property:     -ms-transform, opacity;
        -o-transition-property:      -o-transform, opacity;
           transition-property:         transform, opacity;
+}
+
+/*********************************************/
+.thumbnail {
+  width:250px;
+  height:250px;
+  overflow: hidden;
+  display: inline-block;
+  margin: 23px;
+  border-radius: 8px;
+  background-color:rgba(245, 245, 245, 0.66);
 }

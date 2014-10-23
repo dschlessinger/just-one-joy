@@ -14,5 +14,5 @@ class Alchemy
 	end
 end
 
-client = Alchemy.new('b9c67370b8702641d0933b7feaac314aac7d80a1', 'I feel very sad')
-p client.text_analysis["docSentiment"]["score"].to_f
+client = Alchemy.new('b9c67370b8702641d0933b7feaac314aac7d80a1', 'Vision-oriented full-range algorithm')
+p client.text_analysis#["docSentiment"]["score"].to_f

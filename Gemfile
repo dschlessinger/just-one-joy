@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 # PostgreSQL driver
 gem 'pg'
+gem 'pry'
 
 gem 'activerecord'
 gem 'activesupport'
@@ -20,6 +21,8 @@ gem 'bcrypt'
 gem 'shotgun'
 
 gem 'httparty'
+
+gem 'dotenv-rails'
 
 group :test do
   gem 'shoulda-matchers'

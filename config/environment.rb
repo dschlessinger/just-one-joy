@@ -7,10 +7,12 @@ require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
 
 # Require gems we care about
 require 'rubygems'
+require 'httparty'
 
 require 'uri'
 require 'pathname'
 
+require 'pry'
 require 'pg'
 require 'active_record'
 require 'active_support'
@@ -22,6 +24,11 @@ require "sinatra/reloader" if development?
 
 require 'erb'
 
+require 'dotenv'
+Dotenv.load
+
+API_KEY = ENV['API_KEY']
+
 # Some helper constants for path-centric logic
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 
@@ -30,6 +37,7 @@ APP_NAME = APP_ROOT.basename.to_s
 # Set up the controllers and helpers
 Dir[APP_ROOT.join('app', 'controllers', '*.rb')].each { |file| require file }
 Dir[APP_ROOT.join('app', 'helpers', '*.rb')].each { |file| require file }
+Dir[APP_ROOT.join('app', 'services', '*.rb')].each { |file| require file }
 
 # Set up the database and models
 require APP_ROOT.join('config', 'database')

@@ -38,10 +38,16 @@ end
 
 #----------- POSTS -----------
 
+get '/posts' do
+  @today = current_user.posts.where(updated_at: Date.yesterday.to_time...Time.current).order(updated_at: :desc)
+  @posts = current_user.posts.order(updated_at: :desc)
+  erb :my_html, layout: false
+end
+
 post '/posts' do
-  Post.create(params)
-  midnight = Time.now.midnight.utc
-  @today = current_user.posts.where("user_id = ? AND updated_at >= ? AND updated_at < ?", current_user.id, midnight, midnight.advance(:days => 1)).reverse
-  @posts = Post.where("user_id = ?", current_user.id).reverse
+  result = Alchemy.new(API_KEY, params[:body]).text_analysis ||=
+  Post.create(params.merge(sentiment: result))
+  @today = current_user.posts.where(updated_at: Date.yesterday.to_time...Time.current).order(updated_at: :desc)
+  @posts = current_user.posts.order(updated_at: :desc)
   erb :my_html, layout: false
 end

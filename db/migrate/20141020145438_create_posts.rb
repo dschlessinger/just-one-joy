@@ -4,7 +4,7 @@ class CreatePosts < ActiveRecord::Migration
   		t.belongs_to :user
   		t.text :body
   		t.boolean :starred, :default => false
-  		t.float :sentiment
+  		t.text :sentiment
   		t.timestamps
   	end
   end
