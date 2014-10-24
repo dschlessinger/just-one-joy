@@ -144,7 +144,7 @@ $('#post-form').submit(function(e) {
     url: '/posts',
     type: 'POST',
     data: $('#post-form').serialize(),
-    dataType: 'json',
+    dataType: 'html',
     beforeSend: function() {
       setTimeout(function(){
         $("h1.welcome").fadeOut(700);
