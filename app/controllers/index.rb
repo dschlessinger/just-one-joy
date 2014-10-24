@@ -39,10 +39,12 @@ end
 #----------- POSTS -----------
 
 get '/graph/all' do
-  average = current_user.average
   posts = Post.all.pluck(:sentiment)
+  labels = (1..posts.length).to_a.each_with_index{|x,i| x = "Post #{i}"}
+  averages = []
+  posts.each_with_index{|score,index| averages << ((posts[0..index].inject(:+))/(index+1)) }
   content_type :json
-  {average: average, posts: posts}.to_json
+  {averages: averages, posts: posts, labels: labels}.to_json
 end
 
 get '/graph/post' do

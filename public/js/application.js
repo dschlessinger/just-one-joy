@@ -165,10 +165,10 @@ function createGraph(graphData, container, type) {
         pointHitDetectionRadius : 20,
         datasetStroke : true,
         datasetStrokeWidth : 2,
-        datasetFill : true,
+        datasetFill : false,
         legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
     };
-    var myChart = new Chart(ctx).Line(data, options);
+    myChart = new Chart(ctx).Line(data, options);
   } else {
     var options = {
       scaleOverride: true,
@@ -185,7 +185,7 @@ function createGraph(graphData, container, type) {
       barDatasetSpacing : 1,
       legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
     }
-    var myChart = new Chart(ctx).Bar(data, options);
+    myChart = new Chart(ctx).Bar(data, options);
   }
 }
 
@@ -193,36 +193,56 @@ function switchToGraph(){
   $(this).addClass('graph-current')
   $('.joyContainer').fadeOut("slow")
   setTimeout(function(){
-    // $('.graphContainer').css("width","900")
+    $('#graphContainer').css("width","900")
+    $('#graphContainer').css("height","400")
     $('#graphContainer').css("display","block")
   }, 700)
 }
 
 function numberArray(i){return i?numberArray(i-1).concat(i):[]}
+function createAverageArray(numberArrayLength, number){
+  var averageArray = []
+  for(var i=0; i < numberArrayLength; i++){
+    averageArray.push(number)
+  }
+  return averageArray
+}
 
 $('.graph').click(function(e){
   e.preventDefault();
   switchToGraph();
+  // $('#graphContainer').css("width","900")
+  // $('#graphContainer').css("height","400")
   $.ajax({
     url: '/graph/all'
   }).done(function(data){
     dataArray = data.posts
-    dataArray.push(data.average)
-    labels = numberArray(dataArray.length - 1)
-    labels.push("Overall")
+    averageArray = createAverageArray((dataArray.length), data.average)
+    postArray = numberArray(dataArray.length)
     var graphData = {
-        labels: labels,
+        labels: data.labels,
         datasets: [
             {
-                label: "This vs. All",
-                fillColor: "rgba(220,220,220,0.5)",
-                strokeColor: "rgba(220,220,220,0.8)",
-                highlightFill: "rgba(220,220,220,0.75)",
-                highlightStroke: "rgba(220,220,220,1)",
-                data: dataArray
-            }
+              label: "Individual Post Score",
+              fillColor: "rgba(220,220,220,0.5)",
+              strokeColor: "rgba(220,220,220,0.8)",
+              highlightFill: "rgba(220,220,220,0.75)",
+              highlightStroke: "rgba(220,220,220,1)",
+              data: data.posts
+            },
+            {
+              label: "Overall Score",
+              fillColor: "rgba(151,187,205,0.5)",
+              strokeColor: "rgba(151,187,205,0.8)",
+              highlightFill: "rgba(151,187,205,0.75)",
+              highlightStroke: "rgba(151,187,205,1)",
+              data: data.averages
+          }
         ]
     };
+    // if (typeof(myChart) === 'object') {
+    //   myChart.destroy();
+    // }
     createGraph(graphData, 'graphContainer', 'line');
   });
 });
