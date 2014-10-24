@@ -1,25 +1,21 @@
-// $(document).ready(function() {
-  function updateCountdown() {
-    var remaining = 140 - $('.message').val().length;
-    $('.countdown').text(remaining + ' characters remaining.');
-  }
+function updateCountdown() {
+  var remaining = 140 - $('.message').val().length;
+  $('.countdown').text(remaining + ' characters remaining.');
+}
 
-  updateCountdown();
-  $('.message').change(updateCountdown);
-  $('.message').keyup(updateCountdown);
-
-
-  $('a[data-filter]').on('click', function(e){
-    $('.joyFilter .current').removeClass('current');
-    $('.graph').removeClass('graph-current')
-    $('#graphContainer').fadeOut("slow")
-    $('.joyContainer').fadeIn("slow")
-    $(this).addClass('current');
-    $('.joyContainer').isotope({ filter: $(this).data('filter') });
-  });
-// });
+updateCountdown();
+$('.message').change(updateCountdown);
+$('.message').keyup(updateCountdown);
 
 
+$('a[data-filter]').on('click', function(e){
+  $('.joyFilter .current').removeClass('current');
+  $('.graph').removeClass('graph-current')
+  $('#graphContainer').fadeOut("slow")
+  $('.joyContainer').fadeIn("slow")
+  $(this).addClass('current');
+  $('.joyContainer').isotope({ filter: $(this).data('filter') });
+});
 
 // var $container = $('.joyContainer');
 
@@ -38,12 +34,10 @@
 //   $('.joyContainer').isotope({ sortBy: sortValue });
 // });
 
-// $(function(){
 $('.joyContainer').delegate('.plus', 'click', function(e){
   e.preventDefault();
   smallGraphContainer = $(this).closest('div').find('canvas').attr('id')
   if ($('#' + smallGraphContainer).hasClass('expanded')) {
-    // $('#graph' + smallGraphContainer).destroy()
     $('#graph' + smallGraphContainer).css("display","none")
     $(this).closest('.thumbnail').toggleClass('expanded')
   } else {
@@ -82,9 +76,6 @@ $('.joyContainer').delegate('.plus', 'click', function(e){
     });
   }
 });
-// })
-
-
 
 $('.joyContainer').delegate('.star', 'click', function(e) {
   e.preventDefault();
@@ -101,8 +92,6 @@ $('.joyContainer').delegate('.star', 'click', function(e) {
     }
   });
 });
-
-
 
 $('#display-posts-button').click(function(e) {
   $(this).css('display','none');
