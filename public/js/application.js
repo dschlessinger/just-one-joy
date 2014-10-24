@@ -12,7 +12,7 @@ $(document).ready(function() {
   $('a[data-filter]').on('click', function(e){
     $('.joyFilter .current').removeClass('current');
     $('.graph').removeClass('graph-current')
-    $('.graphContainer').fadeOut("slow")
+    $('#graphContainer').fadeOut("slow")
     $('.joyContainer').fadeIn("slow")
     $(this).addClass('current');
     $('.joyContainer').isotope({ filter: $(this).data('filter') });
@@ -149,14 +149,32 @@ $('#display-posts-button').click(function(e) {
 
 
 
-function createGraph(graphData, container) {
+function createGraph(graphData, container, type) {
   var ctx = $('#' + container).get(0).getContext("2d");
   var data = graphData
-  var options = {
+  if (type == 'line') {
+    var options = {
+        scaleShowGridLines : true,
+        scaleGridLineColor : "rgba(0,0,0,.05)",
+        scaleGridLineWidth : 1,
+        bezierCurve : true,
+        bezierCurveTension : 0.4,
+        pointDot : true,
+        pointDotRadius : 4,
+        pointDotStrokeWidth : 1,
+        pointHitDetectionRadius : 20,
+        datasetStroke : true,
+        datasetStrokeWidth : 2,
+        datasetFill : true,
+        legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+    };
+    var myChart = new Chart(ctx).Line(data, options);
+  } else {
+    var options = {
       scaleOverride: true,
-      scaleStartValue: -1,
-      scaleStepWidth: 1,
-      scaleSteps: 2,
+      scaleStartValue: 0,
+      scaleStepWidth: 10,
+      scaleSteps: 10,
       scaleBeginAtZero : true,
       scaleShowGridLines : true,
       scaleGridLineColor : "rgba(0,0,0,.05)",
@@ -166,8 +184,9 @@ function createGraph(graphData, container) {
       barValueSpacing : 5,
       barDatasetSpacing : 1,
       legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+    }
+    var myChart = new Chart(ctx).Bar(data, options);
   }
-  var myChart = new Chart(ctx).Bar(data, options);
 }
 
 function switchToGraph(){
@@ -175,7 +194,7 @@ function switchToGraph(){
   $('.joyContainer').fadeOut("slow")
   setTimeout(function(){
     // $('.graphContainer').css("width","900")
-    $('.graphContainer').css("display","block")
+    $('#graphContainer').css("display","block")
   }, 700)
 }
 
@@ -189,8 +208,10 @@ $('.graph').click(function(e){
   }).done(function(data){
     dataArray = data.posts
     dataArray.push(data.average)
+    labels = numberArray(dataArray.length - 1)
+    labels.push("Overall")
     var graphData = {
-        labels: numberArray(dataArray.length - 1).push("Overall"),
+        labels: labels,
         datasets: [
             {
                 label: "This vs. All",
@@ -198,10 +219,10 @@ $('.graph').click(function(e){
                 strokeColor: "rgba(220,220,220,0.8)",
                 highlightFill: "rgba(220,220,220,0.75)",
                 highlightStroke: "rgba(220,220,220,1)",
-                data: [dataArray]
+                data: dataArray
             }
         ]
     };
-    createGraph(graphData, 'graphContainer');
+    createGraph(graphData, 'graphContainer', 'line');
   });
 });
