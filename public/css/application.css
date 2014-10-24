@@ -217,8 +217,8 @@ nav ul li:nth-child(2) {
 }
 
 .joyContainer {
-  width: 900px;
-  height: 400px !important;
+  width: 1200px;
+  height: 500px !important;
   margin: 0 auto;
   overflow-y: scroll !important;
 }

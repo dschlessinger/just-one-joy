@@ -39,43 +39,47 @@ $(document).ready(function() {
 // });
 
 // $(function(){
-// $('.joyContainer').delegate('.plus', 'click', function(e){
-//   graphContainer = $(this).closest('div').find('canvas').attr('id')
-//   e.preventDefault();
-//   $.ajax({
-//     url: '/graph/post',
-//     data: {id: $(this).closest('.thumbnail').attr('id')}
-//   }).done(function(data){
-//     console.log(data)
-//     var graphData = {
-//         labels: ["Post"],
-//         datasets: [
-//             {
-//                 label: "This",
-//                 fillColor: "rgba(220,220,220,0.5)",
-//                 strokeColor: "rgba(220,220,220,0.8)",
-//                 highlightFill: "rgba(220,220,220,0.75)",
-//                 highlightStroke: "rgba(220,220,220,1)",
-//                 data: [data.this_score]
-//             },
-//             {
-//                 label: "All",
-//                 fillColor: "rgba(151,187,205,0.5)",
-//                 strokeColor: "rgba(151,187,205,0.8)",
-//                 highlightFill: "rgba(151,187,205,0.75)",
-//                 highlightStroke: "rgba(151,187,205,1)",
-//                 data: [data.all_score]
-//             }
-//         ]
-//     };
-//     $('#' + graphContainer).css("display","block")
-//     $('#' + graphContainer).show( "slide",
-//       {direction: "down", distance: "200px"}, 1000 );
-//     });
-//     $('#' + graphContainer).css("","block")
-//     createGraph(graphData, graphContainer);
-//   });
-// });
+$('.joyContainer').delegate('.plus', 'click', function(e){
+  smallGraphContainer = $(this).closest('div').find('canvas').attr('id')
+  e.preventDefault();
+  $.ajax({
+    url: '/graph/post',
+    data: {id: $(this).closest('.thumbnail').attr('id')}
+  }).done(function(data){
+    label = 'Post ' + data.id + ' vs. Overall'
+    console.log(data)
+    var graphData = {
+        labels: [label],
+        datasets: [
+            {
+                label: label,
+                fillColor: "rgba(220,220,220,0.5)",
+                strokeColor: "rgba(220,220,220,0.8)",
+                highlightFill: "rgba(220,220,220,0.75)",
+                highlightStroke: "rgba(220,220,220,1)",
+                data: [data.post_score]
+            },
+            {
+                label: "Overall",
+                fillColor: "rgba(151,187,205,0.5)",
+                strokeColor: "rgba(151,187,205,0.8)",
+                highlightFill: "rgba(151,187,205,0.75)",
+                highlightStroke: "rgba(151,187,205,1)",
+                data: [data.all_score]
+            }
+        ]
+    };
+    $('#' + data.id).css("height","500")
+    $('#' + data.id).css("width","500")
+    $('#' + data.id).css("margin-left","49px")
+    $('#' + data.id).css("margin-right","49px")
+    $('#' + data.id).css("background-color","rgba(245, 245, 245, 1)")
+    $('#' + smallGraphContainer).css("display","block")
+    $('#' + smallGraphContainer).css("width","200")
+    $('#' + smallGraphContainer).css("height","200")
+    createGraph(graphData, smallGraphContainer, 'bar');
+  });
+});
 // })
 
 $('#post-form').submit(function(e) {
@@ -173,8 +177,8 @@ function createGraph(graphData, container, type) {
     var options = {
       scaleOverride: true,
       scaleStartValue: 0,
-      scaleStepWidth: 10,
-      scaleSteps: 10,
+      scaleStepWidth: 20,
+      scaleSteps: 5,
       scaleBeginAtZero : true,
       scaleShowGridLines : true,
       scaleGridLineColor : "rgba(0,0,0,.05)",

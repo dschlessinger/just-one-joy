@@ -50,7 +50,7 @@ end
 get '/graph/post' do
   post = Post.find(params[:id])
   content_type :json
-  {this_score: (post.sentiment).to_s[0..5], all_score: (current_user.average).to_s[0..5]}.to_json
+  {post_score: post.sentiment, all_score: current_user.average, id: post.id}.to_json
 end
 
 get '/posts' do
