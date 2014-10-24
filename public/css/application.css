@@ -153,25 +153,33 @@ textarea.form-control {
 /**********************************************************/
 
 nav {
-  height: 40px;
+  height: 20px;
   font-weight: bold;
 }
 
 nav ul li{
   margin: 10px;
-  padding: 0 15px;
+  padding: 0 10px;
   display: inline-block;
 }
 
-nav ul li:nth-child(1) {
+nav ul li:nth-child(1), nav ul li:nth-child(2) {
   float: left;
   text-align: left;
 }
 
 nav ul li:nth-child(2) {
+  margin-left: -25px;
+}
+
+nav ul li:nth-child(3) {
   color: black;
   float: right;
   text-align: right;
+}
+
+nav button {
+  padding: 0;
 }
 
 #display-posts-button {
@@ -300,6 +308,14 @@ nav ul li:nth-child(2) {
   background-color:rgba(245, 245, 245, 0.66);
 }
 
+.expanded {
+  height: 500px;
+  width: 500px;
+  margin-left: 49px;
+  margin-right: 49px;
+  background-color: rgba(245, 245, 245, 1)
+}
+
 .graph {
   margin-left: 50px;
 }
@@ -324,12 +340,11 @@ a.graph-current {
   border-radius: 8px;
 }
 
-.caption canvas {
-  display:none;
+.small-graph {
+  display: none;
   width: 225px;
-  height: 0px;
+  height: 225px;
   margin: 5px auto;
-  width: 225;
 }
 
 .sort {
@@ -340,28 +355,13 @@ a.graph-current {
   color: rgba(255, 51, 51, 0.77);
 }
 
-.fadeout {
-    position: relative;
-    bottom: 4em;
-    height: 4em;
-    background: -webkit-linear-gradient(
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 100%
-    );
-    background-image: -moz-linear-gradient(
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 100%
-    );
-    background-image: -o-linear-gradient(
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 100%
-    );
-    background-image: linear-gradient(
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 100%
-    );
-    background-image: -ms-linear-gradient(
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 100%
-    );
+#back-to-post {
+  display: none;
+  color: white;
+}
+
+#back-to-post:hover {
+  color: black;
+  transition: 0.4s ease;
+}
 }

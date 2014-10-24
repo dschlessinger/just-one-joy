@@ -1,4 +1,4 @@
-$(document).ready(function() {
+// $(document).ready(function() {
   function updateCountdown() {
     var remaining = 140 - $('.message').val().length;
     $('.countdown').text(remaining + ' characters remaining.');
@@ -17,7 +17,7 @@ $(document).ready(function() {
     $(this).addClass('current');
     $('.joyContainer').isotope({ filter: $(this).data('filter') });
   });
-});
+// });
 
 
 
@@ -40,70 +40,51 @@ $(document).ready(function() {
 
 // $(function(){
 $('.joyContainer').delegate('.plus', 'click', function(e){
-  smallGraphContainer = $(this).closest('div').find('canvas').attr('id')
   e.preventDefault();
-  $.ajax({
-    url: '/graph/post',
-    data: {id: $(this).closest('.thumbnail').attr('id')}
-  }).done(function(data){
-    label = 'Post ' + data.id + ' vs. Overall'
-    console.log(data)
-    var graphData = {
-        labels: [label],
-        datasets: [
-            {
-                label: label,
-                fillColor: "rgba(220,220,220,0.5)",
-                strokeColor: "rgba(220,220,220,0.8)",
-                highlightFill: "rgba(220,220,220,0.75)",
-                highlightStroke: "rgba(220,220,220,1)",
-                data: [data.post_score]
-            },
-            {
-                label: "Overall",
-                fillColor: "rgba(151,187,205,0.5)",
-                strokeColor: "rgba(151,187,205,0.8)",
-                highlightFill: "rgba(151,187,205,0.75)",
-                highlightStroke: "rgba(151,187,205,1)",
-                data: [data.all_score]
-            }
-        ]
-    };
-    $('#' + data.id).css("height","500")
-    $('#' + data.id).css("width","500")
-    $('#' + data.id).css("margin-left","49px")
-    $('#' + data.id).css("margin-right","49px")
-    $('#' + data.id).css("background-color","rgba(245, 245, 245, 1)")
-    $('#' + smallGraphContainer).css("display","block")
-    $('#' + smallGraphContainer).css("width","200")
-    $('#' + smallGraphContainer).css("height","200")
-    createGraph(graphData, smallGraphContainer, 'bar');
-  });
+  smallGraphContainer = $(this).closest('div').find('canvas').attr('id')
+  if ($('#' + smallGraphContainer).hasClass('expanded')) {
+    // $('#graph' + smallGraphContainer).destroy()
+    $('#graph' + smallGraphContainer).css("display","none")
+    $(this).closest('.thumbnail').toggleClass('expanded')
+  } else {
+    $.ajax({
+      url: '/graph/post',
+      data: {id: $(this).closest('.thumbnail').attr('id')}
+    }).done(function(data){
+      label = 'Post ' + data.id + ' vs. Overall'
+      console.log(data)
+      var graphData = {
+          labels: [label],
+          datasets: [
+              {
+                  label: label,
+                  fillColor: "rgba(220,220,220,0.5)",
+                  strokeColor: "rgba(220,220,220,0.8)",
+                  highlightFill: "rgba(220,220,220,0.75)",
+                  highlightStroke: "rgba(220,220,220,1)",
+                  data: [data.post_score]
+              },
+              {
+                  label: "Overall",
+                  fillColor: "rgba(151,187,205,0.5)",
+                  strokeColor: "rgba(151,187,205,0.8)",
+                  highlightFill: "rgba(151,187,205,0.75)",
+                  highlightStroke: "rgba(151,187,205,1)",
+                  data: [data.all_score]
+              }
+          ]
+      };
+      $('#' + data.id).toggleClass("expanded")
+      $('#' + smallGraphContainer).css("display","block")
+      $('#' + smallGraphContainer).css("width","200")
+      $('#' + smallGraphContainer).css("height","200")
+      createGraph(graphData, smallGraphContainer, 'bar');
+    });
+  }
 });
 // })
 
-$('#post-form').submit(function(e) {
-  e.preventDefault();
-  $.ajax({
-    url: '/posts',
-    type: 'POST',
-    data: $('#post-form').serialize(),
-    dataType: 'json',
-    beforeSend: function() {
-      setTimeout(function(){
-        $("h1.welcome").fadeOut(700);
-      }, 0)
-      $(".wrapper").fadeOut(700);
-      $("h3.welcome").eq(0).fadeOut(700);
-    }
-  }).done(function(data) {
-    $('.joyContainer').append(data);
-    $('.joy-outer-container').css("display","block")
-    $('.joy-outer-container').animate({
-      opacity: 1
-    }, 500);
-  });
-});
+
 
 $('.joyContainer').delegate('.star', 'click', function(e) {
   e.preventDefault();
@@ -124,9 +105,46 @@ $('.joyContainer').delegate('.star', 'click', function(e) {
 
 
 $('#display-posts-button').click(function(e) {
+  $(this).css('display','none');
   e.preventDefault();
   $.ajax({
     url: '/posts',
+    type: 'GET',
+    beforeSend: function() {
+      setTimeout(function(){
+        $("h1.welcome").fadeOut(700);
+      }, 0);
+      $(".wrapper").fadeOut(700);
+      $("h3.welcome").eq(0).fadeOut(700);
+    }
+  }).done(function(data) {
+    $('#back-to-post').css('display','block');
+    $('.joyContainer').append(data);
+    setTimeout(function(){
+    $('.joy-outer-container').css("display","block");
+    },500);
+    $('.joy-outer-container').animate({
+      opacity: 1
+    }, 500);
+  });
+});
+
+displayPosts = function(data) {
+  console.log("success")
+  $('.joyContainer').append(data);
+  $('.joy-outer-container').css("display","block")
+  $('.joy-outer-container').animate({
+    opacity: 1
+  }, 500);
+}
+
+$('#post-form').submit(function(e) {
+  e.preventDefault();
+  $.ajax({
+    url: '/posts',
+    type: 'POST',
+    data: $('#post-form').serialize(),
+    dataType: 'json',
     beforeSend: function() {
       setTimeout(function(){
         $("h1.welcome").fadeOut(700);
@@ -134,18 +152,7 @@ $('#display-posts-button').click(function(e) {
       $(".wrapper").fadeOut(700);
       $("h3.welcome").eq(0).fadeOut(700);
     }
-  }).done(function(data) {
-    $('.joyContainer').append(data);
-    setTimeout(function(){
-    $('.joy-outer-container').css("display","block");
-    },500)
-    $('.joy-outer-container').animate({
-      opacity: 1
-    }, 500);
-    // setTimeout(function(){
-      // $('.joy-outer-container').animate({'marginTop': '-=5%'}, 2000);
-    // }, 2000)
-  });
+  }).done(displayPosts).always(console.log('always'))
 });
 
 // =============================================================
@@ -194,7 +201,7 @@ function createGraph(graphData, container, type) {
 }
 
 function switchToGraph(){
-  $(this).addClass('graph-current')
+  $('.graph').addClass('graph-current')
   $('.joyContainer').fadeOut("slow")
   setTimeout(function(){
     $('#graphContainer').css("width","900")
@@ -215,8 +222,6 @@ function createAverageArray(numberArrayLength, number){
 $('.graph').click(function(e){
   e.preventDefault();
   switchToGraph();
-  // $('#graphContainer').css("width","900")
-  // $('#graphContainer').css("height","400")
   $.ajax({
     url: '/graph/all'
   }).done(function(data){
@@ -244,9 +249,6 @@ $('.graph').click(function(e){
           }
         ]
     };
-    // if (typeof(myChart) === 'object') {
-    //   myChart.destroy();
-    // }
     createGraph(graphData, 'graphContainer', 'line');
   });
 });

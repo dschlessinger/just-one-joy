@@ -60,10 +60,9 @@ get '/posts' do
 end
 
 post '/posts' do
-  post = Post.create(params)
+  Post.create(params)
   @today = current_user.posts.where(updated_at: Date.yesterday.to_time...Time.current).order(updated_at: :desc)
   @posts = current_user.posts.order(updated_at: :desc)
-  p "*"*100
   erb :my_html, layout: false
 end
 

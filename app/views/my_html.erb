@@ -4,7 +4,7 @@
 			<h3 class="header"><%= post.body %></h3>
 			<p><%= (post.created_at.to_time - 7.hours).strftime("%B %e, %Y") %></p>
 			<p>Positivity Ranking: <b class="joyScore"><%= post.sentiment %></b><b> / 100</b></p>
-			<canvas id="graph<%= post.id %>"></canvas>
+			<canvas class="small-graph" id="graph<%= post.id %>"></canvas>
 			<button type="button" class="btn btn-default plus">
 			  <span id="plus<%=post.id%>" class="glyphicon glyphicon-plus"></span> Expand
 			</button>
