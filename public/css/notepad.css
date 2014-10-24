@@ -5,7 +5,7 @@
 	padding:0px;
 	font-family:Courier, monospace;
 }
-body {
+body.wrapper {
 	background:#333 url(http://static.tumblr.com/maopbtg/a5emgtoju/inflicted.png) repeat;
 }
 .paper {
