@@ -3,9 +3,8 @@
 		<div class="caption">
 			<h3 class="header"><%= post.body %></h3>
 			<p><%= (post.created_at.to_time - 7.hours).strftime("%B %e, %Y") %></p>
-			<% if post.has_attribute?(:sentiment) && post.sentiment != nil && JSON.parse(post.sentiment)['status'] == "OK" %>
-			<p>Positivity Ranking: <b><%= JSON.parse(post.sentiment)["docSentiment"]["score"] %></b></p>
-			<% end %>
+			<p>Positivity Ranking: <b class="joyScore"><%= post.sentiment %></b><b> / 100</b></p>
+			<canvas id="graph<%= post.id %>"></canvas>
 			<button type="button" class="btn btn-default plus">
 			  <span id="plus<%=post.id%>" class="glyphicon glyphicon-plus"></span> Expand
 			</button>

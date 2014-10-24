@@ -19,19 +19,62 @@ $(document).ready(function() {
   });
 });
 
-  // var $container = $('.joyContainer');
 
-  // $container.isotope({
-  //   itemSelector: '.thumbnail',
-  //   masonry: {
-  //     columnWidth: 296
-  //   }
-  // })
+
+// var $container = $('.joyContainer');
+
+// $('.joyContainer').isotope({
+//   itemSelector: '.thumbnail',
+//   getSortData: {
+//     joyScore: function( itemElem ) {
+//       var joyScore = $( itemElem ).find('.joyScore').text();
+//       return parseFloat( weight.replace( /[\(\)]/g, '') );
+//     }
+//   }
+// })
+
+// $('.joyContainer').on( 'click', 'button', function() {
+//   var sortValue = $(this).attr('data-sort-value');
+//   $('.joyContainer').isotope({ sortBy: sortValue });
+// });
 
 // $(function(){
-// $('.joyContainer').delegate('.plus', 'click', function(){
-//   var slider = $(this).parent().parent()
-//   slider.toggle("slide", {direction: "down", distance: "296px"});
+// $('.joyContainer').delegate('.plus', 'click', function(e){
+//   graphContainer = $(this).closest('div').find('canvas').attr('id')
+//   e.preventDefault();
+//   $.ajax({
+//     url: '/graph/post',
+//     data: {id: $(this).closest('.thumbnail').attr('id')}
+//   }).done(function(data){
+//     console.log(data)
+//     var graphData = {
+//         labels: ["Post"],
+//         datasets: [
+//             {
+//                 label: "This",
+//                 fillColor: "rgba(220,220,220,0.5)",
+//                 strokeColor: "rgba(220,220,220,0.8)",
+//                 highlightFill: "rgba(220,220,220,0.75)",
+//                 highlightStroke: "rgba(220,220,220,1)",
+//                 data: [data.this_score]
+//             },
+//             {
+//                 label: "All",
+//                 fillColor: "rgba(151,187,205,0.5)",
+//                 strokeColor: "rgba(151,187,205,0.8)",
+//                 highlightFill: "rgba(151,187,205,0.75)",
+//                 highlightStroke: "rgba(151,187,205,1)",
+//                 data: [data.all_score]
+//             }
+//         ]
+//     };
+//     $('#' + graphContainer).css("display","block")
+//     $('#' + graphContainer).show( "slide",
+//       {direction: "down", distance: "200px"}, 1000 );
+//     });
+//     $('#' + graphContainer).css("","block")
+//     createGraph(graphData, graphContainer);
+//   });
 // });
 // })
 
@@ -50,11 +93,11 @@ $('#post-form').submit(function(e) {
       $("h3.welcome").eq(0).fadeOut(700);
     }
   }).done(function(data) {
+    $('.joyContainer').append(data);
     $('.joy-outer-container').css("display","block")
     $('.joy-outer-container').animate({
       opacity: 1
     }, 500);
-    $('.joyContainer').append(data);
   });
 });
 
@@ -88,43 +131,32 @@ $('#display-posts-button').click(function(e) {
       $("h3.welcome").eq(0).fadeOut(700);
     }
   }).done(function(data) {
+    $('.joyContainer').append(data);
     setTimeout(function(){
-      $('.joy-outer-container').css("display","block");
-    },0)
+    $('.joy-outer-container').css("display","block");
+    },500)
     $('.joy-outer-container').animate({
       opacity: 1
     }, 500);
-    $('.joyContainer').append(data);
+    // setTimeout(function(){
+      // $('.joy-outer-container').animate({'marginTop': '-=5%'}, 2000);
+    // }, 2000)
   });
 });
 
 // =============================================================
 
-function createGraph() {
-  var ctx = $(".graphContainer").get(0).getContext("2d");
-  ctx.clearRect(0, 0, 900, 400);
-  var data = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
-      datasets: [
-          {
-              label: "My First dataset",
-              fillColor: "rgba(220,220,220,0.5)",
-              strokeColor: "rgba(220,220,220,0.8)",
-              highlightFill: "rgba(220,220,220,0.75)",
-              highlightStroke: "rgba(220,220,220,1)",
-              data: [65, 59, 80, 81, 56, 55, 40]
-          },
-          {
-              label: "My Second dataset",
-              fillColor: "rgba(151,187,205,0.5)",
-              strokeColor: "rgba(151,187,205,0.8)",
-              highlightFill: "rgba(151,187,205,0.75)",
-              highlightStroke: "rgba(151,187,205,1)",
-              data: [28, 48, 40, 19, 86, 27, 90]
-          }
-      ]
-  };
+
+
+
+function createGraph(graphData, container) {
+  var ctx = $('#' + container).get(0).getContext("2d");
+  var data = graphData
   var options = {
+      scaleOverride: true,
+      scaleStartValue: -1,
+      scaleStepWidth: 1,
+      scaleSteps: 2,
       scaleBeginAtZero : true,
       scaleShowGridLines : true,
       scaleGridLineColor : "rgba(0,0,0,.05)",
@@ -135,28 +167,41 @@ function createGraph() {
       barDatasetSpacing : 1,
       legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
   }
-  var myBarChart = new Chart(ctx).Bar(data, options);
-  // canvas.onclick = function(evt){
-  //   var activeBars = myBarChart.getBarsAtEvent(evt);
-  // };
-  // return myBarChart
+  var myChart = new Chart(ctx).Bar(data, options);
 }
 
 function switchToGraph(){
   $(this).addClass('graph-current')
   $('.joyContainer').fadeOut("slow")
   setTimeout(function(){
-    $('.graphContainer').css("width","900")
-    $('.graphContainer').css("height","400")
+    // $('.graphContainer').css("width","900")
     $('.graphContainer').css("display","block")
   }, 700)
 }
 
-$('.graph').click(function(){
-  // var ctx = document.getElementsByClassName('graphContainer').getContext('2d')
-  // ctx.clearRect(0, 0, 900, 400);
+function numberArray(i){return i?numberArray(i-1).concat(i):[]}
+
+$('.graph').click(function(e){
+  e.preventDefault();
   switchToGraph();
-  // if ($('.graphContainer').toDataURL() == document.getElementById('blank').toDataURL()) {
-  createGraph();
-  // }
+  $.ajax({
+    url: '/graph/all'
+  }).done(function(data){
+    dataArray = data.posts
+    dataArray.push(data.average)
+    var graphData = {
+        labels: numberArray(dataArray.length - 1).push("Overall"),
+        datasets: [
+            {
+                label: "This vs. All",
+                fillColor: "rgba(220,220,220,0.5)",
+                strokeColor: "rgba(220,220,220,0.8)",
+                highlightFill: "rgba(220,220,220,0.75)",
+                highlightStroke: "rgba(220,220,220,1)",
+                data: [dataArray]
+            }
+        ]
+    };
+    createGraph(graphData, 'graphContainer');
+  });
 });

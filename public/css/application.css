@@ -218,30 +218,15 @@ nav ul li:nth-child(2) {
 
 .joyContainer {
   width: 900px;
-  height: 400px;
-  /*margin:;*/
+  height: 400px !important;
   margin: 0 auto;
-  overflow-y: scroll;
+  overflow-y: scroll !important;
 }
 
 .header {
   font-weight: 900;
   margin-bottom: 1em;
 }
-
-/*.joy {*/
-  /*font-size: 2em;*/
-/*  overflow: hidden;
-  word-wrap: break-word;
-  width: 200px;
-  height: 200px;
-  display: inline-block;
-  margin: 2%;
-  border: 5px dashed white;
-  border-radius: 12px;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.7);*/
-/*}*/
 
 /* =========================================== */
 /* INDEX FILTER */
@@ -331,10 +316,52 @@ a.graph-current {
           transition-duration: 0.4s;
 }
 
-.graphContainer {
+#graphContainer {
   padding: 15px;
   margin: 0 auto;
   display: none;
   background-color:white;
   border-radius: 8px;
+}
+
+.caption canvas {
+  display:none;
+  width: 225px;
+  height: 0px;
+  margin: 5px auto;
+  width: 225;
+}
+
+.sort {
+  margin-left: 50px;
+}
+
+.red {
+  color: rgba(255, 51, 51, 0.77);
+}
+
+.fadeout {
+    position: relative;
+    bottom: 4em;
+    height: 4em;
+    background: -webkit-linear-gradient(
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 100%
+    );
+    background-image: -moz-linear-gradient(
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 100%
+    );
+    background-image: -o-linear-gradient(
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 100%
+    );
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 100%
+    );
+    background-image: -ms-linear-gradient(
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 100%
+    );
 }

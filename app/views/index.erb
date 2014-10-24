@@ -12,6 +12,7 @@
 		<textarea class="text message" name="body" rows="4" maxlength="140"></textarea>
 		<div class="characters"><p class="countdown"></p></div>
 		<input id="post-submit" type="submit" value="Create" class="button" />
+		<!-- <div class="fadeout"></div> -->
 	</form>
 </div>
 
@@ -23,9 +24,10 @@
 		    <a data-filter=".today" class="current">Today</a>
 		    <a data-filter=".starred">Starred</a>
 		    <a data-filter=".thumbnail">All</a>
+		    <a data-sort-value="joyScore" class="sort"><span class="glyphicon glyphicon-heart red"></span> Sort</a>
 		    <a class="graph"><span class="glyphicon glyphicon-signal"></span> Metrics</a>
 		</div>
 	</div>
 	<div class="joyContainer"></div>
-	<canvas class="graphContainer" width="900" height="400"></canvas>
+	<canvas id="graphContainer" width="900" height="400"></canvas>
 </div>

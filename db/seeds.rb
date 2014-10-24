@@ -1,16 +1,14 @@
 require 'faker'
 require 'date'
 
-User.create(first_name: "Daniel", last_name: "Schlessinger", email: "example@gmail.com", password: "password")
+daniel = User.create(first_name: "Daniel", last_name: "Schlessinger", email: "example@gmail.com", password: "password")
 
-10.times {User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: Faker::Lorem.characters(10))}
+array = (1..10).to_a.sample(5)
+count = 1
+emotions = %w(sad happy joyful joyous depressed mad angry elated incredible terrible)
 
-User.all.each do |user|
-	array = (1..20).to_a.sample(5)
-	count = 1
-	# 20.times do
-		array.include?(count) ? boolean = true : boolean = false
-		Post.create(starred: boolean, body: Faker::Company.catch_phrase, user_id: user.id, updated_at: (Date.today - rand(10)))
-	# 	count = count + 1
-	# end
+10.times do
+	array.include?(count) ? boolean = true : boolean = false
+	Post.create(starred: true, body: "I feel #{emotions.shift}", user_id: 1, updated_at: (Date.today - rand(3)))
+	count = count + 1
 end
